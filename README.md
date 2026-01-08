@@ -114,7 +114,6 @@ Behavior:
 - User input is converted to uppercase
 - Final response is returned
 - Execution completes
----
 
 ```
 --------------------------------------------------
@@ -164,7 +163,7 @@ Behavior:
 - Input is processed normally
 - Program exits after printing the response
 
-KEY IMPLEMENTATION NOTES
+## KEY IMPLEMENTATION NOTES
 ---
 
 STATE HANDLING
@@ -182,13 +181,13 @@ AgentState:
 
 Example:
 
+```
 {
   "metadata": {
     "conversation": ConversationState
   }
 }
-
---------------------------------------------------------------------
+```
 
 ADAPTERS
 
@@ -202,8 +201,6 @@ Adapters allow existing logic to run unchanged:
 - router_adapter
   - Extracts ConversationState
   - Calls existing routing logic
-
---------------------------------------------------------------------
 
 JSON-BASED WORKFLOW
 
