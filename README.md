@@ -164,7 +164,6 @@ Behavior:
 - Program exits after printing the response
 
 ## KEY IMPLEMENTATION NOTES
----
 
 STATE HANDLING
 
