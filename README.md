@@ -2,9 +2,8 @@ LangGraph Agent Console Demo
 
 The agent runs in the terminal and processes simple user input through a small state machine.
 
-====================================================================
 WHAT THIS DEMO DOES
-====================================================================
+---
 
 - Runs a console-based conversational agent
 - Uses LangGraph as the execution engine
@@ -16,9 +15,8 @@ WHAT THIS DEMO DOES
 
 No LLMs or API keys are required.
 
-====================================================================
 REQUIREMENTS
-====================================================================
+---
 
 Python:
 - Python 3.9 or higher
@@ -31,9 +29,8 @@ Install dependencies with:
 
 pip install langchain langgraph
 
-====================================================================
 HOW TO EXECUTE
-====================================================================
+---
 
 1. Open a terminal in the extracted directory
 2. Run the LangGraph-based agent:
@@ -41,9 +38,8 @@ HOW TO EXECUTE
 For Refactored agent: `python new_agent_service.py`
 For Original agent: `python old_agent_service.py`
 
-====================================================================
 WHAT TO EXPECT WHEN RUNNING
-====================================================================
+---
 
 - The program waits for you to press Enter
 - A conversation state is initialized
@@ -59,11 +55,10 @@ router → init → input → process → result/error
 
 Routing is controlled by the "step" field in the state.
 
-====================================================================
 EXAMPLE RUNS (`new_agent_service.py`)
-====================================================================
+---
 
---------------------------------------------------
+```--------------------------------------------------
 Example 1: Input = "Hello World"
 --------------------------------------------------
 
@@ -111,14 +106,14 @@ State AFTER:
 {'metadata': {'conversation': {'step': 'result', 'user_input': 'Hello World', 'response': 'Final result: HELLO WORLD'}}}
 --------------------------------------------------
 
-Assistant-> {'step': 'result', 'user_input': 'Hello World', 'response': 'Final result: HELLO WORLD'}
+Assistant-> {'step': 'result', 'user_input': 'Hello World', 'response': 'Final result: HELLO WORLD'}```
 
 Behavior:
 - User input is converted to uppercase
 - Final response is returned
 - Execution completes
 
---------------------------------------------------
+```--------------------------------------------------
 Example 2: Input = (blank)
 --------------------------------------------------
 
@@ -143,28 +138,27 @@ State AFTER:
 {'metadata': {'conversation': {'step': 'error', 'user_input': '', 'response': 'Error: No input provided.'}}}
 --------------------------------------------------
 
-Assistant-> {'step': 'error', 'user_input': '', 'response': 'Error: No input provided.'}
+Assistant-> {'step': 'error', 'user_input': '', 'response': 'Error: No input provided.'}```
 
 Behavior:
 - Blank input triggers the error node
 - An error message is returned
 
---------------------------------------------------
+```--------------------------------------------------
 Example 3: Input = "exit"
 --------------------------------------------------
 
 User: exit
 
 Assistant-> {'step': 'result', 'user_input': 'exit', 'response': 'Final result: EXIT'}
-Exiting chat.
+Exiting chat.```
 
 Behavior:
 - Input is processed normally
 - Program exits after printing the response
 
-====================================================================
 KEY IMPLEMENTATION NOTES
-====================================================================
+---
 
 STATE HANDLING
 
@@ -214,9 +208,8 @@ The agent structure is defined in agent_graph.json and includes:
 
 No graph wiring logic is hardcoded.
 
-====================================================================
 SUMMARY
-====================================================================
+---
 
 - Fully runnable from the terminal
 - No external services required
