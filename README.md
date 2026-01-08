@@ -188,6 +188,26 @@ Example:
 }
 ```
 
+## DIRECTORY STRUCTURE
+└── project_root/
+    ├── README.md
+    ├── adapters.py               # State adapters for converting AgentState to ConversationState
+    ├── agent_graph.json          # The JSON config defining the new agent
+    ├── new_agent.py              # New agent reusing old Nodes, Tools, Routes
+    ├── new_agent_service.py      # Agent Service running the refactored agent
+    ├── old_agent_service.py      # Agent Service running the onboarding api equivelent agent
+    ├── agent/                    # Onboarding api equivalent agent
+    │   ├── __init__.py
+    │   ├── graph.py
+    │   ├── nodes.py
+    │   ├── router.py
+    │   ├── state.py
+    │   └── tools.py
+    └── langgraph_base/           # Original AgenticGraph class with AgentState
+        ├── __init__.py
+        ├── base_graph.py
+        └── state.py
+
 ADAPTERS
 
 Adapters allow existing logic to run unchanged:

@@ -32,11 +32,11 @@ async def run_console_chat():
         input("------Press enter to start------")
 
         result = await agent.ainvoke(wrap_state(state))
-        state = unwrap_state(result)
+        result = unwrap_state(result)
 
-        print(f"\nAssistant-> {state}")
+        print(f"\nAssistant-> {result}")
 
-        if state.get("user_input").lower() in ("exit", "quit"):
+        if result.get("user_input").lower() in ("exit", "quit"):
             print("Exiting chat.")
             break
 
