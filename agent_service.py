@@ -1,6 +1,12 @@
 import asyncio
 from new_graph import create_agent
 
+def agent_state(state):
+    return {
+        "metadata": {
+            "conversation": state
+        }
+    }
 
 async def run_console_chat():
     agent = create_agent()
@@ -9,7 +15,7 @@ async def run_console_chat():
         "user_input": "",
         "response": "",
     }
-
+    state = agent_state(state)
     while True:
         input("------Press enter to start------")
         result = await agent.ainvoke(state)

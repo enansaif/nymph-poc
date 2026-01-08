@@ -1,4 +1,5 @@
 from langgraph_base.base_graph import AgenticGraph
+from adapters import state_adapter, router_adapter
 
 from agent.nodes import (
     InitNode,
@@ -16,17 +17,28 @@ class DemoAgentGraph(AgenticGraph):
     def __init__(self):
         tools = create_demo_tools()
 
-        handlers = {
-            "router": log_node("router", router_node),
-            "init": log_node("init", InitNode(tools).execute),
-            "input": log_node("input", InputNode(tools).execute),
-            "process": log_node("process", ProcessNode(tools).execute),
-            "result": log_node("result", ResultNode(tools).execute),
-            "error": log_node("error", ErrorNode(tools).execute),
+        nodes = {
+            "router": router_node,
+            "init": InitNode(tools).execute,
+            "input": InputNode(tools).execute,
+            "process": ProcessNode(tools).execute,
+            "result": ResultNode(tools).execute,
+            "error": ErrorNode(tools).execute,
         }
 
+        handlers = {}
+
+        handlers = {}
+
+        for name, fn in nodes.items():
+            if name == "router":
+                handlers[name] = log_node(name, fn)
+            else:
+                handlers[name] = log_node(name, state_adapter(fn))
+
+
         routers = {
-            "route_by_step": route_by_step
+            "route_by_step": router_adapter(route_by_step)
         }
 
         super().__init__(
@@ -34,7 +46,6 @@ class DemoAgentGraph(AgenticGraph):
             handlers=handlers,
             routers=routers,
             checkpointer=None,
-            tool_registry=tools
         )
 
 
