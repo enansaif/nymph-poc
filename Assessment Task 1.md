@@ -1,31 +1,33 @@
-## Onboarding API Architecture Overview
+## Architecture Overview
 
-### `chat_router.py`
+### Onboarding API
+
+#### `chat_router.py`
 - Serves as the main API entry point
 - Delegates request handling to `AgentChatService`
 
-### `AgentChatService`
+#### `AgentChatService`
 - Wraps the graph-based agent with additional capabilities
 - Handles data persistence
 
-### `agents/graph.py`
+#### `agents/graph.py`
 - Defines the main graph-based agent
 - Attaches and registers all nodes
 
-### `routing_config.py`
+#### `routing_config.py`
 - Defines routing rules for the agent graph
 - Controls which nodes are allowed to execute next
 
-### `state.py`
+#### `state.py`
 - Defines the shared `ConversationState` object
 - Persists data between node executions
 
-### `tools.py`
+#### `tools.py`
 - Defines tools that nodes can use to extend functionality
 - Not used in a traditional LLM tool-calling pattern
 - Functions as supporting utilities for node logic
 
-### `nodes/`
+#### `nodes/`
 - Contains the core business logic of the system
 - Each node:
   - Accepts a `ConversationState` as input
@@ -34,13 +36,13 @@
 - Each node sets the `current_node` flag in the state after execution
 - The `route_by_step` function uses `current_node` to determine the next node to run
 
-## AgentGraph Overview
+### AgentGraph Overview
 
-### Config Paths
+#### Config Paths
 - Defines the path to a JSON configuration file
 - The JSON file acts as the agent blueprint
 
-### Handlers
+#### Handlers
 - Used to create and define nodes within the graph
 - Each handler represents a single reusable node
 - A handler may contain:
@@ -48,20 +50,20 @@
   - One or more LLM invocations
   - Additional internal logic blocks
 
-### Routers
+#### Routers
 - Inspect the current state object
 - Decide which node should execute next
 - Return the identifier of the next node
 
-### Tool Registry
+#### Tool Registry
 - Dictionary of tools available to the LLM
 - Tools can be invoked from any handler
 
-### Checkpointer
+#### Checkpointer
 - Backed by a MongoDB server
 - Persists the agent’s current state
 
-### AgentState
+#### AgentState
 - Persistent state object passed to every handler
 
 ## Summary
