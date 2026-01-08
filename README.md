@@ -58,7 +58,8 @@ Routing is controlled by the "step" field in the state.
 EXAMPLE RUNS (`new_agent_service.py`)
 ---
 
-```--------------------------------------------------
+```
+--------------------------------------------------
 Example 1: Input = "Hello World"
 --------------------------------------------------
 
@@ -106,12 +107,14 @@ State AFTER:
 {'metadata': {'conversation': {'step': 'result', 'user_input': 'Hello World', 'response': 'Final result: HELLO WORLD'}}}
 --------------------------------------------------
 
-Assistant-> {'step': 'result', 'user_input': 'Hello World', 'response': 'Final result: HELLO WORLD'}```
+Assistant-> {'step': 'result', 'user_input': 'Hello World', 'response': 'Final result: HELLO WORLD'}
+```
 
 Behavior:
 - User input is converted to uppercase
 - Final response is returned
 - Execution completes
+---
 
 ```--------------------------------------------------
 Example 2: Input = (blank)
