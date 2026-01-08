@@ -116,7 +116,8 @@ Behavior:
 - Execution completes
 ---
 
-```--------------------------------------------------
+```
+--------------------------------------------------
 Example 2: Input = (blank)
 --------------------------------------------------
 
@@ -141,20 +142,23 @@ State AFTER:
 {'metadata': {'conversation': {'step': 'error', 'user_input': '', 'response': 'Error: No input provided.'}}}
 --------------------------------------------------
 
-Assistant-> {'step': 'error', 'user_input': '', 'response': 'Error: No input provided.'}```
+Assistant-> {'step': 'error', 'user_input': '', 'response': 'Error: No input provided.'}
+```
 
 Behavior:
 - Blank input triggers the error node
 - An error message is returned
 
-```--------------------------------------------------
+```
+--------------------------------------------------
 Example 3: Input = "exit"
 --------------------------------------------------
 
 User: exit
 
 Assistant-> {'step': 'result', 'user_input': 'exit', 'response': 'Final result: EXIT'}
-Exiting chat.```
+Exiting chat.
+```
 
 Behavior:
 - Input is processed normally
