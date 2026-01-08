@@ -28,13 +28,8 @@ class DemoAgentGraph(AgenticGraph):
 
         handlers = {}
 
-        handlers = {}
-
         for name, fn in nodes.items():
-            if name == "router":
-                handlers[name] = log_node(name, fn)
-            else:
-                handlers[name] = log_node(name, state_adapter(fn))
+            handlers[name] = log_node(name, state_adapter(fn))
 
 
         routers = {
