@@ -189,6 +189,7 @@ Example:
 ```
 
 ## DIRECTORY STRUCTURE
+```
 └── project_root/
     ├── README.md
     ├── adapters.py               # State adapters for converting AgentState to ConversationState
@@ -207,7 +208,7 @@ Example:
         ├── __init__.py
         ├── base_graph.py
         └── state.py
-
+```
 ADAPTERS
 
 Adapters allow existing logic to run unchanged:
