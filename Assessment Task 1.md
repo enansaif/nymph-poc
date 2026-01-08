@@ -36,13 +36,15 @@
 - Each node sets the `current_node` flag in the state after execution
 - The `route_by_step` function uses `current_node` to determine the next node to run
 
-### AgentGraph Overview
+---
 
-#### Config Paths
+### AgentGraph (`langgraph_base`)
+
+#### `config_path`
 - Defines the path to a JSON configuration file
 - The JSON file acts as the agent blueprint
 
-#### Handlers
+#### `handlers`
 - Used to create and define nodes within the graph
 - Each handler represents a single reusable node
 - A handler may contain:
@@ -50,48 +52,55 @@
   - One or more LLM invocations
   - Additional internal logic blocks
 
-#### Routers
+#### `routers`
 - Inspect the current state object
 - Decide which node should execute next
 - Return the identifier of the next node
 
-#### Tool Registry
+#### `tool_registry`
 - Dictionary of tools available to the LLM
 - Tools can be invoked from any handler
 
-#### Checkpointer
+#### `checkpointer`
 - Backed by a MongoDB server
 - Persists the agent’s current state
 
-#### AgentState
+#### `AgentState`
 - Persistent state object passed to every handler
+
+---
 
 ## Summary
 
 ### Feasibility
 - The `langgraph_base` module aligns well with the onboarding agent’s requirements.
-- Clear separation between handlers (nodes), routers, and state supports structured onboarding flows.
-- JSON-based agent blueprints enable flexible and declarative configuration.
+- There is a clear relation between AgentGraph handlers and onboarding agent node classes.
+- JSON-based agent declaration is flexible, making it possible to create any graph.
 - Tool integration and MongoDB-backed checkpointing support long-running and recoverable conversations.
-- The base implementation is feasible without requiring major architectural changes.
+- Implementation is feasible without requiring major architectural changes.
 
 ### Scalability
 - Adding new nodes is straightforward due to the handler-based abstraction.
-- Explicit routing functions allow fine-grained control over complex flows.
-- A shared persistent state enables coordination across many nodes.
+- Routing functions allow control over complex flows.
+- A shared persistent state (`AgentState`) enables coordination across new nodes.
+- Can easily change agent structure by modifying the JSON config.
+- Adding a new node is simple: create a new node class, wrap it with a handler, and update the JSON config.
+- Can easily add new tools later in the `tool_registry`.
+
 - Potential challenges as complexity grows:
-  - Routing logic may become difficult to maintain with many conditional paths.
-  - The shared state object may become bloated without enforced structure.
-- Checkpointing scales execution length well but may require indexing and cleanup strategies at scale.
+  - The shared state object may become bloated without a flexible structure.
 
 ### Understandability
-- Core abstractions (AgentGraph, handlers, routers, state) are logically separated.
-- Treating handlers as reusable nodes is intuitive after initial exposure.
+- Core abstractions (AgentGraph, handlers, routers, state, tools) are logically separated.
+- Treating handlers as reusable nodes is intuitive.
 - New developers may face a learning curve, especially if unfamiliar with graph-based agents.
-- The distinction between node logic, routing logic, and tools may require clearer documentation.
+- The distinction between `tool_registry` and `research_tools` is a bit confusing.
 
-### Recommendations for Improvement
+---
+
+## Recommendations for Improvement
 
 1. **State Management**
-   - Encourage typed, namespaced, or validated state fields.
-   - Consider optional schemas or contracts for state usage per node.
+   - The `AgentGraph` directly uses `AgentState` to initialize graph state, which isn't flexible.
+   - It should go through a level of abstraction; for example, let users create a new state, inherit from `AgentState`, then pass that state to `AgentGraph` Or provide some helper function that does this before initialization.
+   - Otherwise, adapter functions are needed to convert `AgentState` to whatever format the nodes expect.
