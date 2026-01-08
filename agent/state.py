@@ -1,7 +1,7 @@
-from typing import TypedDict, Literal
+from typing import TypedDict
 
 
 class ConversationState(TypedDict):
-    step: Literal["start", "input", "process", "result", "error"]
+    step: str
     user_input: str
     response: str

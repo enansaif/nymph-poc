@@ -1,5 +1,5 @@
 import asyncio
-from agent.graph import create_agent
+from new_graph import create_agent
 
 
 async def run_console_chat():

@@ -1,0 +1,46 @@
+{
+  "entry_point": "router",
+  "nodes": [
+    { "name": "router", "handler": "router" },
+    { "name": "init", "handler": "init" },
+    { "name": "input", "handler": "input" },
+    { "name": "process", "handler": "process" },
+    { "name": "result", "handler": "result" },
+    { "name": "error", "handler": "error" }
+  ],
+  "conditional_edges": [
+    {
+      "source": "router",
+      "router": "route_by_step",
+      "path_map": {
+        "start": "init",
+        "input": "input",
+        "process": "process",
+        "result": "result",
+        "error": "error"
+      }
+    },
+    {
+      "source": "init",
+      "router": "route_by_step",
+      "path_map": {
+        "input": "input"
+      }
+    },
+    {
+      "source": "input",
+      "router": "route_by_step",
+      "path_map": {
+        "process": "process"
+      }
+    },
+    {
+      "source": "process",
+      "router": "route_by_step",
+      "path_map": {
+        "result": "result",
+        "error": "error"
+      }
+    }
+  ]
+}
