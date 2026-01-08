@@ -3,7 +3,7 @@ from .tools import DemoTools
 
 
 def log_node(node_name, fn):
-    def wrapper(state: ConversationState):
+    def wrapper(state):
         print("\n" + "-" * 50)
         print(f"Executing node: {node_name}")
         print("State BEFORE:")
