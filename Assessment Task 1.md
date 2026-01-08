@@ -10,10 +10,10 @@
 ## Scalability
 - Adding new nodes is straightforward due to the handler-based abstraction.
 - Routing functions allow control over complex flows.
-- A shared persistent state (`AgentState`) enables coordination across new nodes.
+- A shared persistent state (`AgentState`) enables communication across new nodes.
 - Can easily change agent structure by modifying the JSON config.
 - Adding a new node is simple: create a new node class, wrap it with a handler, and update the JSON config.
-- Can easily add new tools later in the `tool_registry`.
+- Can easily add new tools later in the `tool_registry` for future use.
 
 - Potential challenges as complexity grows:
   - The shared state object may become bloated without a flexible structure.
@@ -27,9 +27,9 @@
 ## Recommendations for Improvement
 
 1. **State Management**
-   - The `AgentGraph` directly uses `AgentState` to initialize graph state, which isn't flexible.
-   - It should go through a level of abstraction; for example, let users create a new state, inherit from `AgentState`, then pass that state to `AgentGraph` Or provide some helper function that does this before initialization.
-   - Otherwise, adapter functions are needed to convert `AgentState` to whatever format the nodes expect.
+  - The `AgentGraph` directly uses `AgentState` to initialize graph state, which isn't flexible.
+  - It should go through a level of abstraction; for example, let users create a new state, inherit from `AgentState`, then pass that state to `AgentGraph` Or provide some helper function that does this before initialization.
+  - Otherwise, adapter functions are needed to convert `AgentState` to whatever format the nodes expect.
 
 ---
 
